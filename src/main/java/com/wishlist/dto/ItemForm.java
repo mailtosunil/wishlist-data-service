@@ -1,30 +1,11 @@
-package com.wishlist.model;
+package com.wishlist.dto;
 
-import java.io.Serializable;
+public class ItemForm  {
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "WISHLIST_ITEMS")
-public class Item implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(generator = "WISHLIST_ITEM_SEQ", strategy = GenerationType.SEQUENCE)
-	@Column(name = "ITEM_ID")
 	private Integer id;
-	@Column(name = "ITEM_TYPE")
 	private String type;
-	@Column(name = "ITEM_VALUE")
 	private Double value;
-	@Column(name = "ITEM_IMG_URL")
 	private String imgUrl;
-	@Column(name = "ITEM_DESC")
 	private String desc;
 
 	public Integer getId() {

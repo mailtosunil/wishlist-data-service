@@ -3,8 +3,9 @@ package com.wishlist.repo;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.wishlist.model.Shoes;
+import com.wishlist.model.Product;
+
 @Repository
-public interface ShoesRepository extends CrudRepository<Shoes, Integer> {
+public interface ProductRepository extends CrudRepository<Product, Integer> {
 
 }

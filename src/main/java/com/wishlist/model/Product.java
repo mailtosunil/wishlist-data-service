@@ -8,35 +8,39 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
-@Table(name="WISHLIST_SHOES_INFO")
-public class Shoes implements Serializable {
+@Table(name = "PRODUCTS")
+public class Product implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(generator="WISHLIST_SHOES_SEQ", strategy=GenerationType.SEQUENCE)
-	@Column(name="ITEM_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "PROD_ID")
 	private Integer id;
-	@Column(name="ITEM_NAME")
+	@Column(name = "PROD_NAME")
 	private String name;
-	@Column(name="ITEM_DESC")
+	@Column(name = "PROD_TYPE")
+	private String type;
+	@Column(name = "PROD_DESC")
 	private String desc;
-	@Column(name="ITEM_PRICE")
-	private Double price;
+	@Column(name = "PROD_VAL")
+	private Double value;
 
-	public Shoes() {
+	public Product() {
 		super();
 	}
 
-	public Shoes(Integer id, String name, String desc, Double price) {
+	public Product(Integer id, String name, String type, String desc, Double value) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.type = type;
 		this.desc = desc;
-		this.price = price;
+		this.value = value;
 	}
 
 	public Integer getId() {
@@ -55,6 +59,14 @@ public class Shoes implements Serializable {
 		this.name = name;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public String getDesc() {
 		return desc;
 	}
@@ -63,11 +75,11 @@ public class Shoes implements Serializable {
 		this.desc = desc;
 	}
 
-	public Double getPrice() {
-		return price;
+	public Double getValue() {
+		return value;
 	}
 
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setValue(Double value) {
+		this.value = value;
 	}
 }
