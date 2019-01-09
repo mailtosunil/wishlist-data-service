@@ -26,6 +26,21 @@ public class Item implements Serializable {
 	private String imgUrl;
 	@Column(name = "ITEM_DESC")
 	private String desc;
+	
+	
+
+	public Item() {
+		super();
+	}
+
+	public Item(Integer id, String type, Double value, String imgUrl, String desc) {
+		super();
+		this.id = id;
+		this.type = type;
+		this.value = value;
+		this.imgUrl = imgUrl;
+		this.desc = desc;
+	}
 
 	public Integer getId() {
 		return id;
