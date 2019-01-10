@@ -3,10 +3,13 @@ package com.wishlist.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wishlist.model.Item;
@@ -22,21 +25,47 @@ public class WishlistItemController {
 	@Autowired
 	private ItemService itemService;
 
+	@SuppressWarnings("rawtypes")
 	@ApiOperation(value = "View a list of available items", response = List.class)
 	@GetMapping("/items")
-	public List<Item> fetchWishlistItems() {
-		return itemService.fetchWishlistItems();
+	public ResponseEntity fetchWishlistItems() {
+		ResponseEntity response = null;
+		List<Item> items = itemService.fetchWishlistItems();
+		if (items != null && !items.isEmpty()) {
+			response = new ResponseEntity<List<Item>>(items, HttpStatus.OK);
+		} else {
+			response = new ResponseEntity<String>("No Data Found", HttpStatus.NOT_FOUND);
+		}
+		return response;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@ApiOperation(value = "For adding item to wishlist", response = Item.class)
 	@PostMapping("/add/item")
-	public Item saveItem(@RequestBody String prodId) {
-		return itemService.saveItemToWishlist(prodId);
+	@ResponseBody
+	public ResponseEntity saveItem(@RequestBody String prodId) {
+		ResponseEntity response = null;
+		Item item = itemService.saveItemToWishlist(prodId);
+		if (item != null) {
+			response = new ResponseEntity<Item>(item, HttpStatus.OK);
+		} else {
+			response = new ResponseEntity<String>("Unable to add item to wishlist", HttpStatus.NOT_MODIFIED);
+		}
+		return response;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@ApiOperation(value = "For deleting an item from wishlist", response = Item.class)
 	@PostMapping("/delete/item")
-	public Item deleteItem(@RequestBody String itemId) {
-		return itemService.deleteItemFromWishlist(Integer.parseInt(itemId));
+	@ResponseBody
+	public ResponseEntity deleteItem(@RequestBody String itemId) {
+		ResponseEntity response = null;
+		Item item = itemService.deleteItemFromWishlist(Integer.parseInt(itemId));
+		if (item != null) {
+			response = new ResponseEntity<Item>(item, HttpStatus.OK);
+		} else {
+			response = new ResponseEntity<String>("Unable to delete item from wishlist", HttpStatus.NOT_MODIFIED);
+		}
+		return response;
 	}
 }
